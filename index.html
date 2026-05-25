@@ -299,6 +299,42 @@ tp (bob) random</pre>
 <pre>sprite (bob) connect var(hello_world)</pre>
         </div>
       </article>
+
+      <article class="command" data-search='follow chase sprite tracks another sprite speed'>
+        <h3>follow</h3>
+        <p class="desc">Makes one sprite continuously chase another. Speed is in pixels per ~30ms tick (default <code>2</code>).</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>(follower) follow (target)
+(follower) follow (target) Npx</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>make sprite (circle'red) name = (enemy) size = ("30'30'px")
+make sprite (circle'blue) name = (hero) size = ("30'30'px")
+tp (hero) (300'200'px)
+(enemy) follow (hero) 3px</pre>
+        </div>
+        <div class="notes">Both sprites must already exist when <code>follow</code> is registered.</div>
+      </article>
+
+      <article class="command" data-search='interact prompt key tooltip label shown when key held and sprites overlap'>
+        <h3>interact</h3>
+        <p class="desc">Shows a small floating label above a sprite while a key is held <em>and</em> another sprite is overlapping it. Useful for "press E to read" prompts.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>interact(sprite) &lt;key&gt; text("string")
+interact(sprite) &lt;key&gt; text(varname)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>make sprite (square'brown) name = (sign) size = ("40'40'px")
+make sprite (circle'blue) name = (player) size = ("30'30'px")
+tp (sign) (200'150'px)
+interact(sign) e text("read me")</pre>
+        </div>
+        <div class="notes">The label only appears while the key is held AND any other sprite is overlapping <code>sprite</code>. Releasing the key hides it.</div>
+      </article>
     </section>
 
     <!-- ============ Buttons & input ============ -->
