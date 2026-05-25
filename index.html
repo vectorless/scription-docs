@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scription — Command Reference</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="site">
+      <div>
+        <h1>Scription</h1>
+        <span class="tagline">a tiny browser-based programming language</span>
+      </div>
+      <nav>
+        <a href="https://vectorless.github.io/scription-lang/" target="_blank" rel="noopener">Live REPL →</a>
+      </nav>
+    </header>
+
+    <section class="intro">
+      <p>
+        Scription is a small language you write in the browser and Run with a
+        button. It has variables, conditionals, sprites you can move around a
+        stage, on-screen buttons, key handlers, and a screen-flash command —
+        enough to prototype tiny games and animations in a few lines.
+      </p>
+      <p>
+        Every command in the language is listed below. Use the search box to
+        filter, or jump to a category.
+      </p>
+    </section>
+
+    <div class="example">
+      <div class="label">Example</div>
+<pre>var(hello)
+(hello) = "world"
+text(hello)
+
+make sprite (circle'blue) name = (bob) size = ("50'50'px")
+show (bob)
+d pressed = move (bob) 5px right repeat until hold = false</pre>
+    </div>
+
+    <div class="search">
+      <input id="search" type="search" placeholder="Search commands…" autocomplete="off">
+    </div>
+
+    <div id="empty" class="empty">No commands match your search.</div>
+
+    <!-- ============ Output ============ -->
+    <section class="category">
+      <h2>Output</h2>
+
+      <article class="command" data-search='text prints to the output pane'>
+        <h3>text</h3>
+        <p class="desc">Prints a value to the Output pane. Accepts a quoted string or a variable name.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>text("string")
+text(varname)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>text("hello world")
+
+var(name)
+(name) = "scription"
+text(name)</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='screen text places text on the stage at coordinates'>
+        <h3>screen text</h3>
+        <p class="desc">Places text on the Stage at the given pixel coordinates.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>screen text("X'Y'px")("string")
+screen text("X'Y'px")(varname)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>screen text("200'450'px")("hello")</pre>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ Variables ============ -->
+    <section class="category">
+      <h2>Variables</h2>
+
+      <article class="command" data-search='var declares a variable'>
+        <h3>var</h3>
+        <p class="desc">Declares a variable. Must start with a letter or underscore.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>var(name)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>var(score)</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='assign assignment store a value in a variable'>
+        <h3>(name) = value</h3>
+        <p class="desc">Assigns a value to a previously declared variable. The right-hand side can be a quoted string or a bare token.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>(name) = "value"
+(name) = value</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>var(score)
+(score) = "0"</pre>
+        </div>
+        <div class="notes">The variable must be declared with <code>var(...)</code> first.</div>
+      </article>
+
+      <article class="command" data-search='input prompts the user for a value'>
+        <h3>input</h3>
+        <p class="desc">Opens a browser prompt and stores what the user types into the variable.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>input(name)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>var(name)
+input(name)
+text(name)</pre>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ Control flow ============ -->
+    <section class="category">
+      <h2>Control flow</h2>
+
+      <article class="command" data-search='if equals conditional comparison'>
+        <h3>if (name) = value &lt;statement&gt;</h3>
+        <p class="desc">Runs the statement when the variable equals the value.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>if (name) = value &lt;statement&gt;</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>var(score)
+(score) = "10"
+if (score) = 10 text("you win")</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='if not equals conditional inequality'>
+        <h3>if (name) ! value &lt;statement&gt;</h3>
+        <p class="desc">Runs the statement when the variable does not equal the value.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>if (name) ! value &lt;statement&gt;</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>var(state)
+(state) = "ready"
+if (state) ! done text("keep going")</pre>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ Sprites ============ -->
+    <section class="category">
+      <h2>Sprites</h2>
+
+      <article class="command" data-search='make sprite creates a circle square triangle or line shape on the stage'>
+        <h3>make sprite</h3>
+        <p class="desc">Creates a sprite on the Stage. Shape is one of <code>circle</code>, <code>square</code>, <code>triangle</code>, or <code>line</code>. Color can be any CSS color.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>make sprite (shape'color) name = (name) size = ("W'H'px")</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>make sprite (circle'blue) name = (bob) size = ("100'100'px")
+make sprite (square'red) name = (box) size = ("60'60'px")
+make sprite (triangle'green) name = (tri) size = ("80'80'px")
+make sprite (line'black) name = (bar) size = ("120'2'px")</pre>
+        </div>
+        <div class="notes">For a <code>line</code>, pick a thin height (or width) — it renders as a colored rectangle at the size you give.</div>
+      </article>
+
+      <article class="command" data-search='show makes a sprite visible'>
+        <h3>show</h3>
+        <p class="desc">Makes a sprite visible.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>show (name)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>show (bob)</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='hide makes a sprite invisible'>
+        <h3>hide</h3>
+        <p class="desc">Hides a sprite.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>hide (name)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>hide (bob)</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='move sprite up down left right pixels direction'>
+        <h3>move</h3>
+        <p class="desc">Moves a sprite N pixels in one of four directions. Add <code>repeat until hold = false</code> inside a key handler to keep moving while the key is held.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>move (name) Npx up
+move (name) Npx down
+move (name) Npx left
+move (name) Npx right
+move (name) Npx &lt;dir&gt; repeat until hold = false</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>move (bob) 5px down
+d pressed = move (bob) 5px right repeat until hold = false</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='move to connected teleport sprite using a variable coordinate'>
+        <h3>move to connected</h3>
+        <p class="desc">Teleports the sprite to coordinates stored in its connected variable. The variable's value must be in <code>X'Y'px</code> format.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>move (name) to connected</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>var(pos)
+(pos) = "100'200'px"
+make sprite (circle'red) name = (dot) size = ("20'20'px")
+sprite (dot) connect var(pos)
+move (dot) to connected</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='teleport sprite or button to coordinates or random position'>
+        <h3>teleport</h3>
+        <p class="desc">Moves a sprite or button to absolute coordinates, or to a random position inside the Stage.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>teleport (name) to (X'Y'px)
+teleport (name) to random</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>teleport (bob) to (300'150'px)
+teleport (bob) to random</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='sprite connect var link sprite to a variable'>
+        <h3>sprite connect var</h3>
+        <p class="desc">Links a sprite to a variable so <code>move … to connected</code> can read coordinates from it.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>sprite (name) connect var(varname)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>sprite (bob) connect var(hello_world)</pre>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ Buttons & input ============ -->
+    <section class="category">
+      <h2>Buttons &amp; input</h2>
+
+      <article class="command" data-search='button creates a clickable button on the stage'>
+        <h3>button</h3>
+        <p class="desc">Creates a clickable button on the Stage. The third group is an identifier you reference from a <code>pressed(...)</code> handler.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>button("label")("W'H'px")(code)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>button("Click me")("80'30'px")(go)
+pressed(go) = text("clicked!")</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='pressed button handler runs code when a button is clicked'>
+        <h3>pressed</h3>
+        <p class="desc">Defines what runs when the button with the matching code is clicked.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>pressed(code) = &lt;statement&gt;</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>button("Pulse")("60'30'px")(p)
+pressed(p) = pulse red</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='key pressed handler runs code when a keyboard key is pressed'>
+        <h3>&lt;key&gt; pressed</h3>
+        <p class="desc">Runs a statement when a single letter key is pressed. Combine with <code>repeat until hold = false</code> for held-key movement.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>&lt;letter&gt; pressed = &lt;statement&gt;</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>d pressed = move (bob) 5px right
+w pressed = move (bob) 5px up repeat until hold = false</pre>
+        </div>
+        <div class="notes">The key must be a single letter (a–z). Handlers do not fire while the Editor pane has keyboard focus — click outside it first.</div>
+      </article>
+    </section>
+
+    <!-- ============ Stage ============ -->
+    <section class="category">
+      <h2>Stage</h2>
+
+      <article class="command" data-search='pulse flashes the stage a color briefly'>
+        <h3>pulse</h3>
+        <p class="desc">Flashes the entire Stage a color briefly (about 150ms).</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>pulse color</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>pulse red
+pulse #00ffaa</pre>
+        </div>
+      </article>
+
+      <article class="command" data-search='coordinates show overlay pixel labels on the stage edges'>
+        <h3>coordinates show</h3>
+        <p class="desc">Overlays X and Y pixel labels every 50px along the Stage edges. Helpful while positioning sprites and text.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>coordinates show</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>coordinates show
+make sprite (circle'green) name = (g) size = ("30'30'px")
+teleport (g) to (200'150'px)</pre>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ Meta ============ -->
+    <section class="category">
+      <h2>Meta</h2>
+
+      <article class="command" data-search='help lists every command in the output pane'>
+        <h3>help</h3>
+        <p class="desc">Lists every command and its description in the Output pane.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>help</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>help</pre>
+        </div>
+      </article>
+    </section>
+
+    <footer class="site">
+      Scription · <a href="https://github.com/vectorless/scription-lang" target="_blank" rel="noopener">source on GitHub</a>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
