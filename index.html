@@ -119,6 +119,26 @@ screen text("X'Y'px")(varname)</pre>
         <div class="notes">The variable must be declared with <code>var(...)</code> first.</div>
       </article>
 
+      <article class="command" data-search='arithmetic add subtract increment decrement number variable plus minus'>
+        <h3>(name) + n / (name) - n</h3>
+        <p class="desc">Adds to or subtracts from a numeric variable. The amount can be a whole number or a decimal.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>(name) + n
+(name) - n</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>var(score)
+(score) = "0"
+(score) + 1
+(score) + 2.5
+(score) - 1
+text(score)</pre>
+        </div>
+        <div class="notes">The variable must hold a number. Strings like <code>"hello"</code> will error.</div>
+      </article>
+
       <article class="command" data-search='input prompts the user for a value'>
         <h3>input</h3>
         <p class="desc">Opens a browser prompt and stores what the user types into the variable.</p>
