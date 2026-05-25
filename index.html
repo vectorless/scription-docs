@@ -395,6 +395,23 @@ pressed(p) = pulse red</pre>
         </div>
       </article>
 
+      <article class="command" data-search='when clicked sprite click handler mouse interaction'>
+        <h3>when (sprite) clicked</h3>
+        <p class="desc">Runs a statement when the sprite is clicked. The sprite's cursor becomes a pointer.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>when (sprite) clicked &lt;statement&gt;</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>var(score)
+(score) = "0"
+make sprite (circle'gold) name = (coin) size = ("40'40'px")
+when (coin) clicked (score) + 1
+screen text("20'20'px")(score)</pre>
+        </div>
+      </article>
+
       <article class="command" data-search='key pressed handler runs code when a keyboard key is pressed'>
         <h3>&lt;key&gt; pressed</h3>
         <p class="desc">Runs a statement when a single letter key is pressed. Combine with <code>repeat until hold = false</code> for held-key movement.</p>
@@ -408,6 +425,41 @@ pressed(p) = pulse red</pre>
 w pressed = move (bob) 5px up repeat until hold = false</pre>
         </div>
         <div class="notes">The key must be a single letter (a–z). Handlers do not fire while the Editor pane has keyboard focus — click outside it first.</div>
+      </article>
+    </section>
+
+    <!-- ============ Timers ============ -->
+    <section class="category">
+      <h2>Timers</h2>
+
+      <article class="command" data-search='timer start countdown seconds ID named'>
+        <h3>timer</h3>
+        <p class="desc">Starts a named countdown timer for N seconds. When it finishes it prints <code>Timer &lt;id&gt; finished</code> and runs any registered <code>timer ID ... ends</code> handler.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>timer Ns timer ID = (id)</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>timer 10s timer ID = (4)
+timer 2.5s timer ID = (intro)</pre>
+        </div>
+        <div class="notes">Starting a timer with an ID that already exists cancels the previous one.</div>
+      </article>
+
+      <article class="command" data-search='timer ends finished handler callback when timer completes'>
+        <h3>timer ID ends</h3>
+        <p class="desc">Registers a statement to run when the named timer finishes. If the timer has already finished, the statement runs immediately.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>timer ID (id) ends &lt;statement&gt;</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>timer 5s timer ID = (4)
+timer ID (4) ends text("lose")</pre>
+        </div>
+        <div class="notes">The timer must be started first with <code>timer Ns timer ID = (id)</code>. <code>timer</code> is case-insensitive here, so <code>Timer ID (4) ends ...</code> also works.</div>
       </article>
     </section>
 
