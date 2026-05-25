@@ -71,9 +71,9 @@ text(name)</pre>
         </div>
       </article>
 
-      <article class="command" data-search='screen text places text on the stage at coordinates'>
+      <article class="command" data-search='screen text places text on the stage at coordinates live update variable binding'>
         <h3>screen text</h3>
-        <p class="desc">Places text on the Stage at the given pixel coordinates.</p>
+        <p class="desc">Places text on the Stage at the given pixel coordinates. When bound to a variable, the on-screen text updates live as the variable changes.</p>
         <div class="block">
           <div class="block-label">Syntax</div>
 <pre>screen text("X'Y'px")("string")
@@ -81,8 +81,14 @@ screen text("X'Y'px")(varname)</pre>
         </div>
         <div class="block">
           <div class="block-label">Example</div>
-<pre>screen text("200'450'px")("hello")</pre>
+<pre>screen text("200'450'px")("hello")
+
+var(score)
+(score) = "0"
+screen text("20'20'px")(score)
+e pressed = (score) + 1</pre>
         </div>
+        <div class="notes">Live updates apply only to the variable form. Literal strings are rendered once.</div>
       </article>
     </section>
 
