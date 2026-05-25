@@ -168,6 +168,23 @@ if (score) = 10 text("you win")</pre>
 if (state) ! done text("keep going")</pre>
         </div>
       </article>
+
+      <article class="command" data-search='if touch collision detection sprites overlap'>
+        <h3>if touch</h3>
+        <p class="desc">Runs the statement once each time two sprites start overlapping. Edge-triggered — it fires on the transition from not-touching to touching, not every frame.</p>
+        <div class="block">
+          <div class="block-label">Syntax</div>
+<pre>if touch (a) touch (b) &lt;statement&gt;</pre>
+        </div>
+        <div class="block">
+          <div class="block-label">Example</div>
+<pre>make sprite (circle'blue) name = (a) size = ("40'40'px")
+make sprite (square'red) name = (b) size = ("40'40'px")
+tp (b) (200'100'px)
+if touch (a) touch (b) tp (a) random</pre>
+        </div>
+        <div class="notes">Both sprites must already exist when <code>if touch</code> is registered. Overlap is checked about every 30ms.</div>
+      </article>
     </section>
 
     <!-- ============ Sprites ============ -->
@@ -252,18 +269,21 @@ move (dot) to connected</pre>
         </div>
       </article>
 
-      <article class="command" data-search='teleport sprite or button to coordinates or random position'>
-        <h3>teleport</h3>
-        <p class="desc">Moves a sprite or button to absolute coordinates, or to a random position inside the Stage.</p>
+      <article class="command" data-search='teleport tp sprite or button to coordinates or random position shorthand'>
+        <h3>teleport / tp</h3>
+        <p class="desc">Moves a sprite or button to absolute coordinates, or to a random position inside the Stage. <code>tp</code> is a shorthand, and the <code>to</code> keyword is optional.</p>
         <div class="block">
           <div class="block-label">Syntax</div>
 <pre>teleport (name) to (X'Y'px)
-teleport (name) to random</pre>
+teleport (name) to random
+tp (name) (X'Y'px)
+tp (name) random</pre>
         </div>
         <div class="block">
           <div class="block-label">Example</div>
 <pre>teleport (bob) to (300'150'px)
-teleport (bob) to random</pre>
+teleport (bob) to random
+tp (bob) random</pre>
         </div>
       </article>
 
